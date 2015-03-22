@@ -18,13 +18,21 @@
 <body>
 	<canvas id="SketchPad" width="1024" height="1024"></canvas>
 
-	<div id="Options">
+	<div id="Colours">
 		<a href='#SketchPad' data-color="#ff0000" title="Red"><img src="img/red_icon.png"/></a>
 		<a href='#SketchPad' data-color="#00ff00" title="Green"><img src="img/green_icon.png"/></a>
 		<a href='#SketchPad' data-color="#0000ff" title="Blue"><img src="img/blue_icon.png"/></a>
 		<a href='#SketchPad' data-color="#000000" title="Black"><img src="img/black_icon.png"/></a>
 		<a href='#SketchPad' data-color="#ffff00" title="Yellow"><img src="img/yellow_icon.png"/></a>
 		<a href="#SketchPad" data-color="#f39c12" title="Orange"><img src="img/orange_icon.png"/></a>
+	</div>
+
+	<div id="BrushOptions">
+		<a href="#SketchPad" data-size="1" title="Small">Tiny</a>
+		<a href="#SketchPad" data-size="5" title="Normal">Normal</a>
+		<a href="#SketchPad" data-size="10" title="Huge">Huge</a>
+		<a href="#SketchPad" data-color="#ffffff" title="Eraser"><img src="img/eraser_icon.png"/></a>
+		<button id="Clear" width="30" height="22">Clear</button>
 	</div>
 
 	<div id="MapButtons">
@@ -37,7 +45,9 @@
 
 	<script type="text/javascript">
 		$(function(){
-			$('#SketchPad').sketch();
+			var sketch = $('#SketchPad').sketch();
+			var cleanCanvas = $('#SketchPad')[0];
+
 			$('#dust2').click(function()
 			{
 				$('#SketchPad').attr("style", "background: url(img/dust2_callouts.png) no-repeat center center;")
@@ -57,6 +67,14 @@
 			$('#cbble').click(function()
 			{
 				$('#SketchPad').attr("style", "background: url(img/cobble_callouts.png) no-repeat center center;")
+			});
+			$('#Clear').click(function()
+			{
+				sketch.sketch().actions = []; // empty the actions
+				var myCanvas = document.getElementById("SketchPad");
+				var ctx = myCanvas.getContext('2d');
+
+				ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
 			});
 		});
 	</script>
